@@ -9,6 +9,8 @@ class MainActivity : AppCompatActivity() {
     private val fragmentManager: FragmentManager = supportFragmentManager
     private val firstFragment = FirstFragment()
 
+    //sdsdsds
+    //sdsdsds
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
