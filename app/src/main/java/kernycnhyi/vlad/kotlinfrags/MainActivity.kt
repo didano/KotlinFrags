@@ -1,19 +1,55 @@
 package kernycnhyi.vlad.kotlinfrags
 
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentManager
+import android.os.Bundle
+import android.view.View
+import androidx.fragment.app.FragmentTransaction
 
 class MainActivity : AppCompatActivity() {
 
-    private val fragmentManager: FragmentManager = supportFragmentManager
-    private val firstFragment = FirstFragment()
+    val fragTransaction:FragmentTransaction = supportFragmentManager.beginTransaction()
+    val firstFragment = FirstFragment()
+    val secondFragment = SecondFragment()
+    val thirdFragment = ThirdFragment()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        fragmentManager.beginTransaction().add(R.id.fragment_container, firstFragment).commit()
+        fragTransaction.add(R.id.fragment_container,firstFragment).commit()
     }
 
+    fun onClick(v: View){
+//        when(v.id){
+//            firstBtnNext.id -> fragTransaction.replace(R.id.fragment_container,secondFragment).addToBackStack(null)
+//            secNextBtn.id -> fragTransaction.replace(R.id.fragment_container,thirdFragment).addToBackStack(null)
+//            secBackBtn.id -> fragTransaction.replace(R.id.fragment_container,firstFragment)
+//            thirdBtnBack.id -> fragTransaction.replace(R.id.fragment_container,secondFragment)
+//        }
+//        fragTransaction.commit()
+    }
+
+    fun getFragmentTransaction():FragmentTransaction{
+        return fragTransaction
+    }
+
+    fun firstNextSecond(){
+        fragTransaction.replace(R.id.fragment_container,secondFragment).addToBackStack(null)
+            .commit()
+    }
+
+    fun secondNextThird(){
+        fragTransaction.replace(R.id.fragment_container,thirdFragment).addToBackStack(null)
+            .commit()
+    }
+
+    fun secondBackFirst(){
+        fragTransaction.replace(R.id.fragment_container,firstFragment).addToBackStack(null)
+            .commit()
+    }
+
+    fun thirdBackSecond(){
+        fragTransaction.replace(R.id.fragment_container,thirdFragment).addToBackStack(null)
+            .commit()
+    }
 }

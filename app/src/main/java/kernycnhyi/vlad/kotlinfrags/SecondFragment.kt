@@ -2,12 +2,15 @@ package kernycnhyi.vlad.kotlinfrags
 
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_second.view.*
 
+/**
+ * A simple [Fragment] subclass.
+ */
 class SecondFragment : Fragment() {
 
 
@@ -16,13 +19,9 @@ class SecondFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val v = inflater.inflate(R.layout.fragment_second, container, false)
-        v.secNextBtn.setOnClickListener {
-            Router(fragmentManager!!).secondNextThird()
-        }
+        v.secNextBtn.setOnClickListener { MainActivity().secondNextThird() }
 
-        v.secBackBtn.setOnClickListener {
-            Router(fragmentManager!!).secondBackFirst()
-        }
+        v.secBackBtn.setOnClickListener { MainActivity().secondBackFirst() }
         return v
     }
 

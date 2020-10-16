@@ -2,16 +2,23 @@ package kernycnhyi.vlad.kotlinfrags
 
 
 import android.content.Context
+import android.inputmethodservice.InputMethodService
+import android.inputmethodservice.Keyboard
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
-import androidx.fragment.app.Fragment
+import kotlinx.android.synthetic.main.fragment_first.*
 import kotlinx.android.synthetic.main.fragment_first.view.*
 
+/**
+ * A simple [Fragment] subclass.
+ */
 class FirstFragment : Fragment() {
 
     override fun onCreateView(
@@ -21,11 +28,9 @@ class FirstFragment : Fragment() {
 
 
         val v = inflater.inflate(R.layout.fragment_first, container, false)
-
         v.firstBtnNext.setOnClickListener {
-            Router(fragmentManager!!).firstNextSecond()
+//            (MainActivity)activity?.firstNextSecond()
         }
-
         val textWatcher = object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
 //
@@ -36,22 +41,17 @@ class FirstFragment : Fragment() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s.toString().isNotEmpty()) {
-                    (activity as MainActivity).supportActionBar?.title = s?.take(before + 1)
+                if(s.toString().isNotEmpty()){
+                    (activity as MainActivity).supportActionBar?.title = s?.take(before+1)
                 }
             }
         }
         v.changeTitleEditText.addTextChangedListener(textWatcher)
 
         v.applyBtn.setOnClickListener {
-            (activity as MainActivity).supportActionBar?.title =
-                v.changeTitleEditText.text.toString()
-            val inputMethodManager =
-                activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.hideSoftInputFromWindow(
-                activity?.currentFocus?.windowToken,
-                0
-            )
+            (activity as MainActivity).supportActionBar?.title = v.changeTitleEditText.text.toString()
+            val inputMethodManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(activity?.getCurrentFocus()?.getWindowToken(), 0)
             v.changeTitleEditText.text.clear()
             v.changeTitleEditText.clearFocus()
         }
